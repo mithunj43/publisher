@@ -27,9 +27,8 @@ public class KafkaSender {
 
     public void send() {
         List<Trades> all = tradeRepo.findAll();
-        List<Trades> allOne = Arrays.asList(all.get(0));
 
-        allOne.forEach(trades -> {
+        all.forEach(trades -> {
             Trade trade = getTrade(trades);
             kafkaTemplate.send(kafkaTopic, trade.getTradeId(),trade);
         });
